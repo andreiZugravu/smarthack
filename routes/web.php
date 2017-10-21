@@ -12,16 +12,7 @@
 */
 Auth::routes();
 
-//Landing page
-Route::get('/', function () {
-    return view('landing.index');
-});
-
 Route::group(['middleware' => ['auth']], function () {
-
-    Route::get('/', function () {
-        return view('landing.index');
-    });
 
     Route::get('/', [
         'as' => 'landing.index',
@@ -30,34 +21,27 @@ Route::group(['middleware' => ['auth']], function () {
 
 //Teams
 
-Route::get('/teams', [
-    'as' => 'teams.index',
-    'uses' => 'TeamsController@index'
-]);
-
-
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-//Users
-Route::get('/users', ['as' => 'users.index', 'uses' => 'UsersController@index']);
-Route::get('/users/{user_id}', ['as' => 'users.show', 'uses' => 'UsersController@show']);
-
-Route::put('/users/{user_id?}', ['as' => 'users.store', 'uses' => 'UsersController@store']);
-
-Route::delete('/users/{user_id}', ['as' => 'users.remove', 'uses' => 'UsersController@remove']);
-
-Auth::routes();
-
-    Route::get('/tasks/index', [
-        'as' => 'tasks.index',
-        'uses' => 'LandingPageController@index'
-    ]);
-
     Route::get('/teams', [
         'as' => 'teams.index',
         'uses' => 'TeamsController@index'
     ]);
 
+    Route::get('/teams/{team}', [
+        'as' => 'teams.show',
+        'uses' => 'TeamsController@show'
+    ]);
+
+//Users
+    Route::get('/users', ['as' => 'users.index', 'uses' => 'UsersController@index']);
+    Route::get('/users/{user_id}', ['as' => 'users.show', 'uses' => 'UsersController@show']);
+
+    Route::put('/users/{user_id?}', ['as' => 'users.store', 'uses' => 'UsersController@store']);
+
+    Route::delete('/users/{user_id}', ['as' => 'users.remove', 'uses' => 'UsersController@remove']);
+
+    Route::get('/tasks/index', [
+        'as' => 'tasks.index',
+        'uses' => 'LandingPageController@index'
+    ]);
 });
 
