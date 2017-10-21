@@ -14,6 +14,7 @@ class CreateChannelsTable extends Migration {
 			$table->string('name', 191);
 			$table->string('description', 191)->nullable();
 			$table->integer('created_by')->unsigned();
+			$table->string('display_name', 191);
 		});
 	}
 

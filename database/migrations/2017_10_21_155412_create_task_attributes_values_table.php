@@ -9,10 +9,9 @@ class CreateTaskAttributesValuesTable extends Migration {
 	{
 		Schema::create('task_attributes_values', function(Blueprint $table) {
 			$table->increments('id');
-			$table->timestamps();
-			$table->softDeletes();
-			$table->text('value');
+			$table->integer('task_id')->unsigned();
 			$table->integer('task_attribute_id')->unsigned();
+			$table->text('value');
 		});
 	}
 
