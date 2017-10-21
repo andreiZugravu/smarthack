@@ -12,7 +12,7 @@ class Channel extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'displayName', 'description', 'created_by'
+        'name', 'display_name', 'description', 'created_by'
     ];
 
     /**
@@ -27,7 +27,7 @@ class Channel extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('App\Models\User');
+        return $this->belongsToMany('App\Models\User', 'channel_user_join', 'channel_id', 'user_id');
     }
 
     /**

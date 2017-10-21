@@ -12,7 +12,7 @@ class Status extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'displayName', 'status_id'
+        'name', 'display_name', 'status_id'
     ];
 
     /**

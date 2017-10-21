@@ -12,7 +12,7 @@ class Task extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'displayName', 'description', 'created_by', 'deadline', 'status_id', 'team_id', 'priority'
+        'name', 'display_name', 'description', 'created_by', 'deadline', 'status_id', 'team_id', 'priority'
     ];
 
     /**
@@ -25,7 +25,7 @@ class Task extends Model
     /**
      * The user that this task belongs to
      */
-    public function user()
+    public function created_by()
     {
         return $this->belongsTo('App\Models\User');
     }
@@ -33,7 +33,7 @@ class Task extends Model
     /**
      * The users that this task is assigned to
      */
-    public function members() //write members instead of users, so we won't go into any ambiguity later on
+    public function users() //write members instead of users, so we won't go into any ambiguity later on
     {
         return $this->belongsToMany('App\Models\User', 'task_user_join', 'task_id', 'user_id');
     }
@@ -63,20 +63,18 @@ class Task extends Model
     }
 
     /**
+     * The values of the attributes of this task
+     */
+    public function task_attributes_values()
+    {
+        return $this->hasMany('App\Models\TaskAttributesValue');
+    }
+
+    /**
      * The attributes of this task
      */
     public function task_attributes()
     {
-        return $this->belongsToMany('App\Models\TaskAttribute', 'task_attributes_join',
-            'task_id', 'task_attribute_id',
-            'id', 'task_attribute_id');
-    }
-
-    /**
-     *
-     */
-    public function task_attributes_values()
-    {
-        return $this->hasManyThrough();
+        return $this->hasManyThrough('App\Models\TaskAttribute', 'App\Models\TaskAttributesValue'); //edit it ***!!!F
     }
 }

@@ -12,7 +12,7 @@ class Team extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'displayName', 'description'
+        'name', 'display_name', 'description'
     ];
 
     /**
@@ -28,5 +28,13 @@ class Team extends Model
     public function users()
     {
         return $this->belongsToMany('App\Models\User', 'user_team_join', 'team_id', 'user_id');
+    }
+
+    /**
+     * The tasks that this team has
+     */
+    public function tasks()
+    {
+        return $this->hasMany('App\Models\Task');
     }
 }

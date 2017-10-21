@@ -12,7 +12,7 @@ class TaskAttribute extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'displayName', 'description', 'task_attribute_id'
+        'name', 'display_name', 'description', 'task_attribute_id'
     ];
 
     /**
@@ -27,8 +27,14 @@ class TaskAttribute extends Model
      */
     public function tasks()
     {
-        return $this->belongsToMany('App\Models\Task', 'task_attributes_join',
-            'task_attribute_id', 'task_id',
-            'task_attribute_id', 'id');
+        return $this->hasManyThrough('App\Models\Task', 'App\Models\TaskAttributesValue');
+    }
+
+    /**
+     * The values of this attribute
+     */
+    public function values()
+    {
+        return $this->hasMany('App\Model\TaskAttributesValue');
     }
 }

@@ -12,7 +12,7 @@ class TaskAttributesValue extends Model
      * @var array
      */
     protected $fillable = [
-        'value', 'task_attribute_id'
+        'task_id', 'task_attribute_id', 'value'
     ];
 
     /**
@@ -23,10 +23,18 @@ class TaskAttributesValue extends Model
     /* none */
 
     /**
-     * Connect the values ?
+     *
      */
-    public function task() /* Use hasManyThrough, since "hasOneThrough" does not exist, it's okay */
+    public function task()
     {
-        return $this->hasManyThrough(); //just one
+        return $this->belongsTo('App\Models\Task');
+    }
+
+    /**
+     *
+     */
+    public function task_attribute()
+    {
+        return $this->belongsTo('App\Models\TaskAttribute');
     }
 }
