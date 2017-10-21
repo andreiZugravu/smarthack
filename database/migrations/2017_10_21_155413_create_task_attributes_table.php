@@ -12,6 +12,7 @@ class CreateTaskAttributesTable extends Migration {
 			$table->timestamps();
 			$table->softDeletes();
 			$table->string('name', 191);
+			$table->string('display_name', 191);
 			$table->string('description', 191)->nullable();
 			$table->integer('task_attribute_id')->unique()->unsigned();
 		});
