@@ -74,12 +74,12 @@ class CreateForeignKeys extends Migration {
 						->onUpdate('cascade');
 		});
 		Schema::table('task_attributes_join', function(Blueprint $table) {
-			$table->foreign('task_attribute_id')->references('id')->on('task_attributes')
+			$table->foreign('task_attribute_id')->references('task_attribute_id')->on('task_attributes')
 						->onDelete('cascade')
 						->onUpdate('cascade');
 		});
 		Schema::table('task_attributes_values', function(Blueprint $table) {
-			$table->foreign('task_attribute_id')->references('id')->on('task_attributes')
+			$table->foreign('task_attribute_id')->references('task_attribute_id')->on('task_attributes')
 						->onDelete('cascade')
 						->onUpdate('cascade');
 		});
