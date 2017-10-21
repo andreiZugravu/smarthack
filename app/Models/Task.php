@@ -35,7 +35,7 @@ class Task extends Model
      */
     public function members() //write members instead of users, so we won't go into any ambiguity later on
     {
-        return $this->belongsToMany('App\Models\User');
+        return $this->belongsToMany('App\Models\User', 'task_user_join', 'task_id', 'user_id');
     }
 
     /**
@@ -49,9 +49,9 @@ class Task extends Model
     /**
      * The state of the current task
      */
-    public function state()
+    public function status()
     {
-        return $this->hasOne('App\Models\State');
+        return $this->hasOne('App\Models\Status');
     }
 
     /**
@@ -62,4 +62,21 @@ class Task extends Model
         return $this->hasMany('App\Models\Checkbox');
     }
 
+    /**
+     * The attributes of this task
+     */
+    public function task_attributes()
+    {
+        return $this->belongsToMany('App\Models\TaskAttribute', 'task_attributes_join',
+            'task_id', 'task_attribute_id',
+            'id', 'task_attribute_id');
+    }
+
+    /**
+     *
+     */
+    public function task_attributes_values()
+    {
+        return $this->hasManyThrough();
+    }
 }

@@ -32,7 +32,7 @@ class User extends Authenticatable
      */
     public function teams()
     {
-        return $this->belongsToMany('App\Models\Team');
+        return $this->belongsToMany('App\Models\Team', 'user_team_join', 'user_id', 'team_id');
     }
 
     /**
@@ -40,7 +40,7 @@ class User extends Authenticatable
      */
     public function channels()
     {
-        return $this->belongsToMany('App\Models\Channel');
+        return $this->belongsToMany('App\Models\Channel', 'channel_user_join', 'user_id', 'channel_id');
     }
 
     /**
@@ -49,5 +49,21 @@ class User extends Authenticatable
     public function messages()
     {
         return $this->hasMany('App\Models\Message');
+    }
+
+    /**
+     * The tasks of this user
+     */
+    public function tasks()
+    {
+        return $this->belongsToMany('App\Models\Task', 'task_user_join', 'user_id', 'task_id');
+    }
+
+    /**
+     * The tasks that this user created/assigned
+     */
+    public function created_tasks()
+    {
+        return $this->hasMany('App\Models\Task');
     }
 }

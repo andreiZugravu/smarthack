@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Team extends Model
+class TaskAttributesValue extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,7 +12,7 @@ class Team extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'displayName', 'description'
+        'value', 'task_attribute_id'
     ];
 
     /**
@@ -23,10 +23,10 @@ class Team extends Model
     /* none */
 
     /**
-     * The users that are part of the team
+     * Connect the values ?
      */
-    public function users()
+    public function task() /* Use hasManyThrough, since "hasOneThrough" does not exist, it's okay */
     {
-        return $this->belongsToMany('App\Models\User', 'user_team_join', 'team_id', 'user_id');
+        return $this->hasManyThrough(); //just one
     }
 }

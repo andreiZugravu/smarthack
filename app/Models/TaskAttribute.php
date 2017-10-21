@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class State extends Model
+class TaskAttribute extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,7 +12,7 @@ class State extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'displayName', 'status_id'
+        'name', 'displayName', 'description', 'task_attribute_id'
     ];
 
     /**
@@ -23,10 +23,12 @@ class State extends Model
     /* none */
 
     /**
-     * The tasks that contain this state
+     * The tasks that this is an attribute of
      */
     public function tasks()
     {
-        return $this->belongsToMany('App\Models\Task');
+        return $this->belongsToMany('App\Models\Task', 'task_attributes_join',
+            'task_attribute_id', 'task_id',
+            'task_attribute_id', 'id');
     }
 }

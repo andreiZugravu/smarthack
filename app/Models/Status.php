@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Team extends Model
+class Status extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,7 +12,7 @@ class Team extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'displayName', 'description'
+        'name', 'displayName', 'status_id'
     ];
 
     /**
@@ -23,10 +23,10 @@ class Team extends Model
     /* none */
 
     /**
-     * The users that are part of the team
+     * The tasks that contain this state
      */
-    public function users()
+    public function tasks()
     {
-        return $this->belongsToMany('App\Models\User', 'user_team_join', 'team_id', 'user_id');
+        return $this->belongsToMany('App\Models\Task');
     }
 }
