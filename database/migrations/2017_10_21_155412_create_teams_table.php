@@ -13,7 +13,7 @@ class CreateTeamsTable extends Migration {
 			$table->softDeletes();
 			$table->string('name', 191);
 			$table->string('display_name', 191);
-
+            $table->string('description', 191);
 		});
 	}
 

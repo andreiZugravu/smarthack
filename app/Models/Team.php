@@ -16,11 +16,30 @@ class Team extends Model
     ];
 
     /**
+     * The validation rules.
+     *
+     * @var array
+     */
+    public static $rules = [
+         'display_name' => ['min:4, max:191']
+    ];
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
     /* none */
+
+    /**
+     * Validate Function
+     *
+     * @var array
+     */
+    public function validate(Request $request)
+    {
+        return Validator::make($request->all(), self::$rules);
+    }
 
     /**
      * The users that are part of the team

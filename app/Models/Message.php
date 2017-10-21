@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Message extends Model
 {
@@ -36,5 +37,19 @@ class Message extends Model
     public function user()
     {
         return $this->belongsTo('App\Models\User');
+    }
+
+    /**
+     * Validate function
+     */
+    public static function validateRequest(Request $request)
+    {
+        return \Validator::make($request->all(), [
+            'text' => 'required|max:191|string',
+            'created_by' => 'required|same:Auth, id' . (($request->id) ? ",$request->id" : ''),
+            'parent_id' => 'nullable|exists:messages, id',
+            'channel_id' => 'required|exists:channels, id'
+        ]);
+//        return Validator::make($request->all(), self::$rules);
     }
 }

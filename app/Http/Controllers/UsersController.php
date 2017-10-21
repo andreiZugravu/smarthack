@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -30,7 +31,7 @@ class UsersController extends Controller
     /**
      *
      */
-    public function store(Request $request)
+    public function store(Request $request, User $user)
     {
         $validator = User::validate($request);
 
@@ -42,14 +43,18 @@ class UsersController extends Controller
             ]);
         }
 
-        User::updateOrCreate(['id' => $request->id], $request->all());
+        User::updateOrCreate(['id' => $user->id], $request->all());
+        return new JsonResponse([
+            'message' => 'Success',
+            'type' => 'success'
+        ]);
     }
 
     /**
      *
      */
-    public function remove()
+    public function remove(User $user)
     {
-
+        $user->delete();
     }
 }
