@@ -2,8 +2,6 @@
 
 @section('content')
 
-    @php($teams = \App\Models\Team::all())
-
     @if($teams ?? false)
         @foreach($teams->chunk(4) as $collection)
             <div class="row">
@@ -28,5 +26,6 @@
     @else
         <h1>You are not working in any team</h1>
     @endif
+
 
 @endsection

@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Validator;
+
 
 class Team extends Model
 {
@@ -36,7 +39,7 @@ class Team extends Model
      *
      * @var array
      */
-    public function validate(Request $request)
+    public static function validate(Request $request)
     {
         return Validator::make($request->all(), self::$rules);
     }

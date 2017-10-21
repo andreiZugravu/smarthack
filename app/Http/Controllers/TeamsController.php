@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Team;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Auth;
 
 
 class TeamsController extends Controller
 {
     //
     public function index() {
-        $teams = Team::all();
+        $teams = User::find(Auth::user()->id)->teams()->get();
         return view('teams.index', ['teams' => $teams]);
     }
 
@@ -46,5 +48,9 @@ class TeamsController extends Controller
    public function remove(Team $team)
    {
        $team->delete();
+       return new JsonResponse([
+           'message' => 'Successfully deleted',
+           'type' => 'success'
+       ]);
    }
 }
