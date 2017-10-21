@@ -11,6 +11,7 @@
 |
 */
 
+//Landing page
 Route::get('/', function () {
     return view('landing.index');
 });
@@ -25,9 +26,23 @@ Route::get('/tasks/index', [
     'uses' => 'LandingPageController@index'
 ]);
 
+//Teams
+
 Route::get('/teams', [
     'as' => 'teams.index',
     'uses' => 'TeamsController@index'
 ]);
+
+
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+//Users
+Route::get('/users', ['as' => 'users.index', 'uses' => 'UsersController@index']);
+Route::get('/users/{user_id}', ['as' => 'users.show', 'uses' => 'UsersController@show']);
+
+Route::put('/users/{user_id?}', ['as' => 'users.store', 'uses' => 'UsersController@store']);
+
+Route::delete('/users/{user_id}', ['as' => 'users.remove', 'uses' => 'UsersController@remove']);
 
 Auth::routes();
