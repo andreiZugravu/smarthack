@@ -26,4 +26,28 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * The teams that the user can be a part of
+     */
+    public function teams()
+    {
+        return $this->belongsToMany('App\Models\Team');
+    }
+
+    /**
+     * The channels that the user is involved in
+     */
+    public function channels()
+    {
+        return $this->belongsToMany('App\Models\Channel');
+    }
+
+    /**
+     * The messages that the user posted somewhere
+     */
+    public function messages()
+    {
+        return $this->hasMany('App\Models\Message');
+    }
 }
