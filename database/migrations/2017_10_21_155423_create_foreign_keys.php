@@ -68,18 +68,13 @@ class CreateForeignKeys extends Migration {
 						->onDelete('cascade')
 						->onUpdate('cascade');
 		});
-		Schema::table('task_attributes_join', function(Blueprint $table) {
+		Schema::table('task_attributes_values', function(Blueprint $table) {
 			$table->foreign('task_id')->references('id')->on('tasks')
 						->onDelete('cascade')
 						->onUpdate('cascade');
 		});
-		Schema::table('task_attributes_join', function(Blueprint $table) {
-			$table->foreign('task_attribute_id')->references('task_attribute_id')->on('task_attributes')
-						->onDelete('cascade')
-						->onUpdate('cascade');
-		});
 		Schema::table('task_attributes_values', function(Blueprint $table) {
-			$table->foreign('task_attribute_id')->references('task_attribute_id')->on('task_attributes')
+			$table->foreign('task_attribute_id')->references('id')->on('task_attributes')
 						->onDelete('cascade')
 						->onUpdate('cascade');
 		});
@@ -133,11 +128,8 @@ class CreateForeignKeys extends Migration {
 		Schema::table('checkboxes', function(Blueprint $table) {
 			$table->dropForeign('checkboxes_task_id_foreign');
 		});
-		Schema::table('task_attributes_join', function(Blueprint $table) {
-			$table->dropForeign('task_attributes_join_task_id_foreign');
-		});
-		Schema::table('task_attributes_join', function(Blueprint $table) {
-			$table->dropForeign('task_attributes_join_task_attribute_id_foreign');
+		Schema::table('task_attributes_values', function(Blueprint $table) {
+			$table->dropForeign('task_attributes_values_task_id_foreign');
 		});
 		Schema::table('task_attributes_values', function(Blueprint $table) {
 			$table->dropForeign('task_attributes_values_task_attribute_id_foreign');

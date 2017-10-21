@@ -11,7 +11,9 @@ class CreateTeamsTable extends Migration {
 			$table->increments('id');
 			$table->timestamps();
 			$table->softDeletes();
-			$table->string('name', 191)->unique();
+			$table->string('name', 191);
+			$table->string('display_name', 191);
+
 		});
 	}
 
