@@ -10,24 +10,28 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
-Route::get('/', function () {
-    return view('landing.index');
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::get('/', function () {
+        return view('landing.index');
+    });
+
+    Route::get('/', [
+        'as' => 'landing.index',
+        'uses' => 'LandingPageController@index'
+    ]);
+
+    Route::get('/tasks/index', [
+        'as' => 'tasks.index',
+        'uses' => 'LandingPageController@index'
+    ]);
+
+    Route::get('/teams', [
+        'as' => 'teams.index',
+        'uses' => 'TeamsController@index'
+    ]);
+
 });
 
-Route::get('/', [
-    'as' => 'landing.index',
-    'uses' => 'LandingPageController@index'
-]);
-
-Route::get('/tasks/index', [
-    'as' => 'tasks.index',
-    'uses' => 'LandingPageController@index'
-]);
-
-Route::get('/teams', [
-    'as' => 'teams.index',
-    'uses' => 'TeamsController@index'
-]);
-
-Auth::routes();

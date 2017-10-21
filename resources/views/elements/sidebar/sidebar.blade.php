@@ -5,9 +5,9 @@
         <div class="sidebar-user">
             <div class="category-content">
                 <div class="media">
-                    <a href="#" class="media-left"><img src="#" class="img-circle img-sm" alt="Smarthack"></a>
+                    <a href="#" class="media-left"><img src="#" class="img-circle img-sm" alt="#"></a>
                     <div class="media-body">
-                        <span class="media-heading text-semibold">Victoria Baker</span>
+                        <span class="media-heading text-semibold">{{ Auth::user()->name }}</span>
                     </div>
 
                     <div class="media-right media-middle">
