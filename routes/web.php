@@ -31,3 +31,12 @@ Route::get('/teams', [
 ]);
 
 Auth::routes();
+
+
+//Users
+Route::get('/users', ['as' => 'users.index', 'uses' => 'UsersController@index']);
+Route::get('/users/{user_id}', ['as' => 'users.show', 'uses' => 'UsersController@show']);
+
+Route::put('/users/{user_id?}', ['as' => 'users.store', 'uses' => 'UsersController@store']);
+
+Route::delete('/users/{user_id}', ['as' => 'users.remove', 'uses' => 'UsersController@remove']);

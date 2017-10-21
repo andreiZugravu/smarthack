@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Validation\Validator;
 
 class User extends Authenticatable
 {
@@ -25,6 +28,15 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token',
+    ];
+
+    /**
+     * Rules
+     */
+    public static $rules = [
+        'name'  => ['min:4', 'max:191', 'required'],
+        'email' => ['email', 'required', 'max:191', 'unique:'],
+        'password' => ['min:6', 'required', 'confirmed']
     ];
 
     /**
@@ -66,4 +78,29 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Task');
     }
+
+    /**
+     * Validate function
+     */
+    public static function validate(Request $request)
+    {
+        return \Validator::make($request->all(), [
+            'name' => 'required|max:191|min:6',
+            'email' => 'required|email|max:191|unique:users,email' . (($request->id) ? ",$request->id" : ''),
+            'password' => 'required|min:6|max:191'
+        ]);
+//        return Validator::make($request->all(), self::$rules);
+    }
 }
+
+/*
+ * if($validator->fails())
+        {
+            return new JsonResponse([
+                'message' => $validator->errors()->first(),
+                'type' => 'error'
+            ]);
+        }
+        else
+            return true;
+ */
