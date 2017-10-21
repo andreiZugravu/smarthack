@@ -23,7 +23,7 @@ class Channel extends Model
     /* none */
 
     /**
-     * The users that are part of the channel
+     *The users that are part of the channel
      */
     public function users()
     {
