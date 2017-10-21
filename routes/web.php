@@ -12,6 +12,7 @@
 */
 Auth::routes();
 
+<<<<<<< HEAD
 
 
 Route::group(['middleware' => ['auth']], function () {
@@ -93,15 +94,34 @@ Route::delete('/channel/{channel}', [
    'uses' => 'ChannelsController@remove'
 ]);
 
+=======
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::get('/', [
+        'as' => 'landing.index',
+        'uses' => 'LandingPageController@index'
+    ]);
+
+//Teams
+
+    Route::get('/teams', [
+        'as' => 'teams.index',
+        'uses' => 'TeamsController@index'
+    ]);
+
+    Route::get('/teams/{team}', [
+        'as' => 'teams.show',
+        'uses' => 'TeamsController@show'
+    ]);
+>>>>>>> bd8676405b7d8ea635a67ea0a8339afa5a38e57f
 
 //Users
-Route::get('/users', ['as' => 'users.index', 'uses' => 'UsersController@index']);
-Route::get('/users/{user_id}', ['as' => 'users.show', 'uses' => 'UsersController@show']);
+    Route::get('/users', ['as' => 'users.index', 'uses' => 'UsersController@index']);
+    Route::get('/users/{user_id}', ['as' => 'users.show', 'uses' => 'UsersController@show']);
 
-Route::put('/users/{user_id?}', ['as' => 'users.store', 'uses' => 'UsersController@store']);
+    Route::put('/users/{user_id?}', ['as' => 'users.store', 'uses' => 'UsersController@store']);
 
-Route::delete('/users/{user_id}', ['as' => 'users.remove', 'uses' => 'UsersController@remove']);
-
+<<<<<<< HEAD
 Route::get('/home', 'HomeController@index')->name('home');
 
 
@@ -111,6 +131,15 @@ Route::get('/home', 'HomeController@index')->name('home');
    ]);
 
 
+=======
+    Route::delete('/users/{user_id}', ['as' => 'users.remove', 'uses' => 'UsersController@remove']);
+
+    Route::get('/tasks/index', [
+        'as' => 'tasks.index',
+        'uses' => 'LandingPageController@index'
+    ]);
+});
+>>>>>>> bd8676405b7d8ea635a67ea0a8339afa5a38e57f
 
 
 });
