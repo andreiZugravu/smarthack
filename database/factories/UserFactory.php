@@ -1,6 +1,6 @@
 <?php
 
-use Faker\Generator\Generator as Faker;
+use Faker\Generator as Faker;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +13,7 @@ use Faker\Generator\Generator as Faker;
 |
 */
 
-$factory->define(App\Models\User::class, function (Faker\Generator\Generator $faker) {
+$factory->define(App\Models\User::class, function (Faker $faker) {
    static $password;
 
    return [
