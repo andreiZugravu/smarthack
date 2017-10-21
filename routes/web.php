@@ -12,9 +12,22 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing.index');
 });
 
-Auth::routes();
+Route::get('/', [
+    'as' => 'landing.index',
+    'uses' => 'LandingPageController@index'
+]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/tasks/index', [
+    'as' => 'tasks.index',
+    'uses' => 'LandingPageController@index'
+]);
+
+Route::get('/teams', [
+    'as' => 'teams.index',
+    'uses' => 'TeamsController@index'
+]);
+
+Auth::routes();
