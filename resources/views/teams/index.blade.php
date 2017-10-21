@@ -3,6 +3,7 @@
 @section('content')
 
     @if(isset($teams))
+
         @foreach($teams->chunk(4) as $collection)
             <div class="row">
                 @foreach($collection as $team)
@@ -89,3 +90,4 @@
     {!! Html::script('/assets/js/smarthack/teams/index.js') !!}
 
 @endpush
+
