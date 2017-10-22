@@ -7,6 +7,7 @@ use App\Models\Channel;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Auth;
+use App\Models\Task;
 
 class TasksController extends Controller
 {
@@ -54,4 +55,44 @@ class TasksController extends Controller
            'type' => 'success'
        ]);
    }
+
+    public function addUser(Request $request, Task $task)
+    {
+        if (!isset($request->user_id) || !User::find($request->user_id)) {
+            abort(404);
+        }
+
+        if(!$task->users()->find($request->user_id))
+        {
+            $task->users()->attach($request->user_id);
+            return redirect()->back();
+        }
+        else
+        {
+            return new JsonResponse([
+                'message' => 'Member already assigned to the task',
+                'type' => 'error'
+            ]);
+        }
+    }
+
+    public function removeUser(Request $request, Task $task)
+    {
+        if (!isset($request->user_id) || !User::find($request->user_id)) {
+            abort(404);
+        }
+
+        if($task->users()->find($request->user_id))
+        {
+            $task->users()->detach($request->user_id);
+            return redirect()->back();
+        }
+        else
+        {
+            return new JsonResponse([
+            'message' => 'Member not assigned to the task',
+            'type' => 'error'
+        ]);
+        }
+    }
 }

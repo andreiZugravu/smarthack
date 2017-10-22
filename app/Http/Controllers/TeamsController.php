@@ -86,7 +86,7 @@ class TeamsController extends Controller
    /**
     *
     */
-   public function removeUser(Team $team, $id)
+   /*public function removeUser(Team $team, $id)
    {
        if($team->users()->first($id)) //part of the team, eligible to remove
        {
@@ -103,5 +103,25 @@ class TeamsController extends Controller
                'type' => 'error'
            ]);
        }
-   }
+   }*/
+
+    public function removeUser(Request $request, Team $team)
+    {
+        if (!isset($request->user_id) || !User::find($request->user_id)) {
+            abort(404);
+        }
+
+        if($team->users()->find($request->user_id))
+        {
+            $team->users()->detach($request->user_id);
+            return redirect()->back();
+        }
+        else
+        {
+            return new JsonResponse([
+                'message' => 'Member not a part of the team',
+                'type' => 'error'
+            ]);
+        }
+    }
 }

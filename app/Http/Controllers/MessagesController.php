@@ -71,4 +71,9 @@ class MessagesController extends Controller
            'type' => 'success'
        ]);
    }
+
+    /**
+     *
+     */
+
 }

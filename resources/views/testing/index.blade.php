@@ -5,8 +5,8 @@
 
         <h1> Hello </h1>
 
-        {{ Form::open(['route' => ['messages.index', 4], 'method' => 'get']) }}
-
+        {{ Form::open(['route' => ['teams.removeUser', 1], 'method' => 'put']) }}
+        {!! Form::text('user_id') !!}
 
         {!! Form::submit('Click Me!') !!}
 
