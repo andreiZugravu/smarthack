@@ -55,32 +55,37 @@ Route::group(['middleware' => ['auth']], function () {
 
 //Messages
 
-    Route::put('/messages/{messages?}', [
-        'as' => 'messages.store',
-        'uses' => 'MessagesController@store'
-    ]);
+Route::put('/messages/{message?}', [
+   'as' => 'messages.store',
+   'uses' => 'MessagesController@store'
+]);
+
+Route::delete('/messages/{message}', [
+   'as' => 'messages.remove',
+   'uses' => 'MessagesController@remove'
+]);
 
 //Channels
 
-    Route::get('/channels', [
-        'as' => 'channels.index',
-        'uses' => 'ChannelsController@index'
-    ]);
+Route::get('/channels', [
+   'as' => 'channels.index',
+   'uses' => 'ChannelsController@index'
+]);
 
-    Route::get('/channels/{channel}', [
-        'as' => 'channels.show',
-        'uses' => 'ChannelsController@show'
-    ]);
+Route::get('/channels/{channel}', [
+   'as' => 'channels.show',
+   'uses' => 'ChannelsController@show'
+]);
 
-    Route::put('/channels/{channel?}', [
-        'as' => 'channels.store',
-        'uses' => 'ChannelsController@store'
-    ]);
+Route::put('/channels/{channel?}', [
+   'as' => 'channels.store',
+   'uses' => 'ChannelsController@store'
+]);
 
-    Route::delete('/channel/{channel}', [
-        'as' => 'channels.remove',
-        'uses' => 'ChannelsController@remove'
-    ]);
+Route::delete('/channel/{channel}', [
+   'as' => 'channels.remove',
+   'uses' => 'ChannelsController@remove'
+]);
 
 
 //Users
@@ -91,22 +96,33 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::delete('/users/{user_id}', ['as' => 'users.remove', 'uses' => 'UsersController@remove']);
 
-
-    Route::get('/home', 'HomeController@index')->name('home');
-
-
-    Route::get('/tasks/index', [
-        'as' => 'tasks.index',
-        'uses' => 'LandingPageController@index'
-    ]);
+	Route::get('/home', 'HomeController@index')->name('home');
 
 
 
+//Tasks
+
+Route::get('/tasks', [
+   'as' => 'tasks.index',
+   'uses' => 'TasksController@index'
+]);
+
+Route::get('/tasks/{task}', [
+   'as' => 'tasks.show',
+   'uses' => 'TasksController@show'
+]);
+
+Route::put('/tasks/{task?}', [
+   'as' => 'tasks.store',
+   'uses' => 'TasksController@store'
+]);
+
+Route::delete('/tasks/{task}', [
+   'as' => 'tasks.remove',
+   'uses' => 'TasksController@remove'
+]);
 
 
-
-    Route::get('/tasks/index', [
-        'as' => 'tasks.index',
-        'uses' => 'LandingPageController@index'
-    ]);
 });
+
+

@@ -46,6 +46,18 @@ class MessagesController extends Controller
                 'message' => 'Success',
                 'type' => 'success'
             ]);
-        }dd('lol');
+        }
     }
+
+     /**
+    *
+    */
+   public function remove(Message $message)
+   {
+       $message->delete();
+       return new JsonResponse([
+           'message' => 'Successfully deleted',
+           'type' => 'success'
+       ]);
+   }
 }

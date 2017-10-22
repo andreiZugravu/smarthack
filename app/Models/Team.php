@@ -24,7 +24,7 @@ class Team extends Model
      * @var array
      */
     public static $rules = [
-         'display_name' => ['min:4, max:191']
+         'display_name' => ['required', 'min:4, max:191']
     ];
 
     /**

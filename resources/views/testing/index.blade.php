@@ -1,25 +1,6 @@
-
-<html>
-
-    <body>
-
-
-        <h1> Hello </h1>
-        {{ Form::open(['url' => route('messages.store', 2), 'method' => 'put']) }}
-        {!! Form::text('text', 'messages') !!}
-        {!! Form::submit('Click Me!') !!}
-        {!! Form::text('channel_id', 1) !!}
-        {!! Form::text('parent_id', 1) !!}
-        {!! Form::close() !!}
-
-    </body>
-
-</html>
-=======
-{{ Form::open(['route' => ['channels.store'], 'method' => 'put']) }} 
+{{ Form::open(['route' => ['teams.store'], 'method' => 'put']) }} 
 {!! Form::text('display_name', 'teamos') !!}
 {!! Form::text('description', 'ceva') !!}
-
 {!! Form::submit('Click Me!') !!}
 
 {!! Form::close() !!}
