@@ -25,8 +25,8 @@ class TasksController extends Controller
 
     public function store(Request $request, Task $task)
    {
-       if(Auth::user() != $task->team()->leader())
-           abort(403);
+       //if(Auth::user() != $task->team()->leader())
+           //abort(403);
 
        Task::normalizeRequest($request);
 
@@ -65,9 +65,9 @@ class TasksController extends Controller
 
     public function addUser(Request $request, Task $task)
     {
-        if (!isset($request->user_id) || !User::find($request->user_id)) {
-            abort(404);
-        }
+        //if (!isset($request->user_id) || !User::find($request->user_id)) {
+            //abort(404);
+        //}
 
         if(!$task->users()->find($request->user_id))
         {
@@ -85,9 +85,9 @@ class TasksController extends Controller
 
     public function removeUser(Request $request, Task $task)
     {
-        if (!isset($request->user_id) || !User::find($request->user_id)) {
-            abort(404);
-        }
+        //if (!isset($request->user_id) || !User::find($request->user_id)) {
+            //abort(404);
+        //}
 
         if($task->users()->find($request->user_id))
         {
