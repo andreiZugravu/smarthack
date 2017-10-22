@@ -5,7 +5,7 @@
 
 
         <h1> Hello </h1>
-        {{ Form::open(['url' => route('messages.store', 2), 'method' => 'put']) }}
+        {{ Form::open(['url' => route('teams.addUser', 2), 'method' => 'put']) }}
         {!! Form::text('text', 'messages') !!}
         {!! Form::submit('Click Me!') !!}
         {!! Form::text('channel_id', 1) !!}

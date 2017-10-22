@@ -53,9 +53,14 @@ Route::group(['middleware' => ['auth']], function () {
         'uses' => 'TeamsController@remove'
     ]);
 
-    Route::addUser('teams/addUser', [
+    Route::put('teams/addUser', [
         'as' => 'teams.addUser',
         'uses' => 'TeamsController@addUser'
+    ]);
+
+    Route::put('teams/removeUser', [
+        'as' => 'teams.removeUser',
+        'uses' => 'TeamsController@removeUser'
     ]);
 
 //Messages
