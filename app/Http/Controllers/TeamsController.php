@@ -61,9 +61,10 @@ class TeamsController extends Controller
    /**
     *
     */
-   public function add_user(Team $team, $id)
+   public function addUser(Team $team, $id)
    {
        $user = User::find($id);
 
+       //if(!$team->users()->first($id)
    }
 }

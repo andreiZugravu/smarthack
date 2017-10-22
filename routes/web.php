@@ -53,11 +53,21 @@ Route::group(['middleware' => ['auth']], function () {
         'uses' => 'TeamsController@remove'
     ]);
 
+    Route::addUser('teams/addUser', [
+        'as' => 'teams.addUser',
+        'uses' => 'TeamsController@addUser'
+    ]);
+
 //Messages
 
-    Route::put('/messages/{messages?}', [
+    Route::put('/messages/{message?}', [
         'as' => 'messages.store',
         'uses' => 'MessagesController@store'
+    ]);
+
+    Route::delete('/messages/{message}', [
+        'as' => 'messages.remove',
+        'uses' => 'MessagesController@remove'
     ]);
 
 //Channels
@@ -91,22 +101,15 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::delete('/users/{user_id}', ['as' => 'users.remove', 'uses' => 'UsersController@remove']);
 
-
     Route::get('/home', 'HomeController@index')->name('home');
 
 
-    Route::get('/tasks/index', [
-        'as' => 'tasks.index',
-        'uses' => 'LandingPageController@index'
-    ]);
-
-
-
-
 
 
     Route::get('/tasks/index', [
         'as' => 'tasks.index',
         'uses' => 'LandingPageController@index'
     ]);
+
+
 });

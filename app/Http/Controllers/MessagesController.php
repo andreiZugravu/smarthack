@@ -46,6 +46,6 @@ class MessagesController extends Controller
                 'message' => 'Success',
                 'type' => 'success'
             ]);
-        }dd('lol');
+        }
     }
 }
