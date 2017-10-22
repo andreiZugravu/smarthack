@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
+use App\Models\Team;
 use Illuminate\Http\Request;
 use App\Models\Channel;
 use App\Models\User;
