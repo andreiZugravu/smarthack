@@ -53,7 +53,18 @@ Route::group(['middleware' => ['auth']], function () {
         'uses' => 'TeamsController@remove'
     ]);
 
+    Route::put('teams/addUser', [
+        'as' => 'teams.addUser',
+        'uses' => 'TeamsController@addUser'
+    ]);
+
+    Route::put('teams/removeUser', [
+        'as' => 'teams.removeUser',
+        'uses' => 'TeamsController@removeUser'
+    ]);
+
 //Messages
+
 
 Route::put('/messages/{message?}', [
    'as' => 'messages.store',
@@ -64,6 +75,17 @@ Route::delete('/messages/{message}', [
    'as' => 'messages.remove',
    'uses' => 'MessagesController@remove'
 ]);
+
+    Route::put('/messages/{message?}', [
+        'as' => 'messages.store',
+        'uses' => 'MessagesController@store'
+    ]);
+
+
+    Route::delete('/messages/{message}', [
+        'as' => 'messages.remove',
+        'uses' => 'MessagesController@remove'
+    ]);
 
 //Channels
 
@@ -124,5 +146,4 @@ Route::delete('/tasks/{task}', [
 
 
 });
-
 

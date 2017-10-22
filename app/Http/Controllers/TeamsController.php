@@ -61,9 +61,44 @@ class TeamsController extends Controller
    /**
     *
     */
-   public function add_user(Team $team, $id)
+   public function addUser(Team $team, $id)
    {
-       $user = User::find($id);
+       if(!($team->users()->first($id))) //not a part of the team already, eligible to add
+       {
+           $team->users()->attach($id);
+           return new JsonResponse([
+               'message' => 'Member successfully added to the team',
+               'type' => 'success'
+           ]);
+       }
+       else
+       {
+           return new JsonResponse([
+               'message' => 'Member already a part of the team',
+               'type' => 'error'
+           ]);
+       }
+   }
 
+   /**
+    *
+    */
+   public function removeUser(Team $team, $id)
+   {
+       if($team->users()->first($id)) //part of the team, eligible to remove
+       {
+           $team->users()->detach($id);
+           return new JsonResponse([
+               'message' => 'Member successfully removed from the team',
+               'type' => 'success'
+           ]);
+       }
+       else
+       {
+           return new JsonResponse([
+               'message' => 'Member not a part of the team',
+               'type' => 'error'
+           ]);
+       }
    }
 }
