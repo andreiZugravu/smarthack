@@ -106,10 +106,23 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::delete('/users/{user_id}', ['as' => 'users.remove', 'uses' => 'UsersController@remove']);
 
-    Route::get('/home', 'HomeController@index')->name('home');
-
     Route::get('/tasks/index', [
         'as' => 'tasks.index',
-        'uses' => 'LandingPageController@index'
+        'uses' => 'TasksController@index'
+    ]);
+
+    Route::get('/tasks/{task}', [
+        'as' => 'tasks.show',
+        'uses' => 'TasksController@show'
+    ]);
+
+    Route::put('/tasks/{task?}', [
+        'as' => 'tasks.store',
+        'uses' => 'TasksController@store'
+    ]);
+
+    Route::delete('/tasks/{task}', [
+        'as' => 'tasks.remove',
+        'uses' => 'TasksController@remove'
     ]);
 });

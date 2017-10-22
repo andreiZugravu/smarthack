@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Validator;
 
 class Task extends Model
 {
@@ -23,6 +25,28 @@ class Task extends Model
     /* none */
 
     /**
+     * The validation rules.
+     *
+     * @var array
+     */
+    public static $rules = [
+         'display_name' => ['required', 'min:4, max:191'],
+         'status_id' => ['required', 'integer'],
+         'team_id' => ['required', 'integer'],
+         'priority' => 'required'
+    ];
+
+    /**
+     * Validate Function
+     *
+     * @var array
+     */
+    public static function validate(Request $request)
+    {
+        return Validator::make($request->all(), self::$rules);
+    }
+
+    /**
      * The user that this task belongs to
      */
     public function created_by()
@@ -33,7 +57,7 @@ class Task extends Model
     /**
      * The users that this task is assigned to
      */
-    public function users() //write members instead of users, so we won't go into any ambiguity later on
+    public function users() //write users instead of members, so we won't go into any ambiguity later on
     {
         return $this->belongsToMany('App\Models\User', 'task_user_join', 'task_id', 'user_id');
     }
