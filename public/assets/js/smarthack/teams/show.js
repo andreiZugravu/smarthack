@@ -6,17 +6,7 @@ $(document).ready(function () {
         $('input[name=description]').val($('#team-description').html());
     });
 
-    $('#delete-team').on('click', function () {
-        $.ajax({
-            url: '/teams',
-            method: 'POST',
-            data: {
-                '_method': 'DELETE',
-                '_token': window.react
-            },
-            error: function (resp) {
-                console.log(resp);
-            }
-        }) ;
+    $('#delete-button').on('click', function () {
+        $(this).closest('form').submit();
     });
 });

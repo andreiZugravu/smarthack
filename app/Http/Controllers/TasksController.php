@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
+use App\Models\Team;
 use Illuminate\Http\Request;
 use App\Models\Channel;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Auth;
-use App\Models\Task;
 
 class TasksController extends Controller
 {
     //
     public function index() {
         $tasks = User::find(Auth::user()->id)->tasks()->get();
+
         return view('tasks.index', ['tasks' => $tasks]);
     }
 

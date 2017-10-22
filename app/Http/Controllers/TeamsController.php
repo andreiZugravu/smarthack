@@ -20,7 +20,7 @@ class TeamsController extends Controller
     public function show(Team $team) {
         $users = User::whereNotIn('id', $team->users->pluck('id'))->get();
 
-    	return view('teams.show', ['team' => $team, 'users' => $users]);
+    	return view('teams.show', ['team' => $team, 'users' => $users, 'tasks' => $team->tasks]);
     }
 
     public function store(Request $request, Team $team)
@@ -54,10 +54,8 @@ class TeamsController extends Controller
    public function remove(Team $team)
    {
        $team->delete();
-       return new JsonResponse([
-           'message' => 'Successfully deleted',
-           'type' => 'success'
-       ]);
+
+       return redirect(route('teams.index'));
    }
 
    /**

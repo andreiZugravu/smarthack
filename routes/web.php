@@ -21,15 +21,9 @@ Route::group(['middleware' => ['auth']], function () {
         return view('testing.index');
     });
 
-
     Route::get('/', function () {
-        return view('landing.index');
+        return redirect(route('teams.index'));
     });
-
-    Route::get('/', [
-        'as' => 'landing.index',
-        'uses' => 'LandingPageController@index'
-    ]);
 
 //Teams
 
@@ -58,7 +52,11 @@ Route::group(['middleware' => ['auth']], function () {
         'uses' => 'TeamsController@addUser'
     ]);
 
-    Route::put('teams/removeUser/{team}', [
+
+
+
+    Route::delete('teams/removeUser', [
+
         'as' => 'teams.removeUser',
         'uses' => 'TeamsController@removeUser'
     ]);
@@ -111,9 +109,13 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::delete('/users/{user_id}', ['as' => 'users.remove', 'uses' => 'UsersController@remove']);
 
+
     //Tasks
 
-    Route::get('/tasks/index', [
+
+
+    Route::get('/tasks', [
+
         'as' => 'tasks.index',
         'uses' => 'TasksController@index'
     ]);
