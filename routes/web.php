@@ -53,7 +53,7 @@ Route::group(['middleware' => ['auth']], function () {
         'uses' => 'TeamsController@remove'
     ]);
 
-    Route::put('teams/addUser', [
+    Route::put('teams/addUser/{team}', [
         'as' => 'teams.addUser',
         'uses' => 'TeamsController@addUser'
     ]);
@@ -108,13 +108,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
-
-
-
     Route::get('/tasks/index', [
         'as' => 'tasks.index',
         'uses' => 'LandingPageController@index'
     ]);
-
-
 });

@@ -28,6 +28,8 @@
         <h1>You are not working in any team</h1>
     @endif
 
+    @permission('create-team')
+
     <ul class="fab-menu fab-menu-fixed fab-menu-bottom-right">
         <li>
             <a href="#" data-popup="tooltip" title="Create team" data-toggle="modal" data-target="#store_modal"
@@ -41,6 +43,8 @@
     <div id="store_modal" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
+                {!! Form::open(['url' => route('teams.store'), 'method' => 'PUT']) !!}
+
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h5 class="modal-title">Create team</h5>
@@ -58,16 +62,14 @@
                             </thead>
                             <tbody>
                             <tr>
-                                {!! Form::open(['url' => route('teams.store'), 'method' => 'PUT']) !!}
-                                <td><input type="text" class="form-control" value="Mark"></td>
-                                <td><input type="text" class="form-control" value="Otto"></td>
+                                <td><input type="text" name="display_name" class="form-control"></td>
+                                <td><input type="text" name="description" class="form-control"></td>
                                 <td>
-                                    <div class="uploader"><input accept="image/*" type="file" class="file-styled">
+                                    <div class="uploader"><input name="avatar" accept="image/*" type="file" class="file-styled">
                                         <span class="filename" style="user-select: none;">No file selected</span><span
                                                 class="action btn btn-default"
                                                 style="user-select: none;">Choose File</span></div>
                                 </td>
-                                {!! Form::close() !!}
                             </tr>
                             </tbody>
                         </table>
@@ -76,12 +78,15 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Create</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
                 </div>
+
+                {!! Form::close() !!}
             </div>
         </div>
     </div>
 
+    @endpermission
 
 @endsection
 

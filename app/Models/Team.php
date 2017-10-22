@@ -44,6 +44,11 @@ class Team extends Model
         return Validator::make($request->all(), self::$rules);
     }
 
+    public function leader()
+    {
+        return $this->belongsTo(User::class, 'lead', 'id');
+    }
+
     /**
      * The users that are part of the team
      */
