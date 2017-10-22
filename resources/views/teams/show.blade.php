@@ -20,19 +20,27 @@
                 </div>
 
                 <div class="caption text-center">
-                    <h6 class="text-semibold no-margin"><span id="team-name">{{ $team->display_name }}</span>
-                        @permission('edit-team')
-                        <a href="#" data-popup="tooltip"
-                           title="Edit team"
-                           data-toggle="modal"
-                           data-target="#edit_modal"><i
-                                    class="icon-gear"></i></a>
-                        @endpermission
+                        <ul class="icons-list">
+                            <li>
+                                <h6 class="text-semibold no-margin"><span id="team-name">{{ $team->display_name }}</span></h6>
+                            </li>
+                            @permission('edit-team')
+                            <li><a href="#" data-popup="tooltip"
+                                   title="Edit team"
+                                   data-toggle="modal"
+                                   data-target="#edit_modal"><i class="icon-gear text-blue"></i></a></li>
+                            @endpermission
 
-                        @permission('delete-team')
-                        <a href="#" data-popup="tooltip"
-                           title="Delete team"><i class="icon-trash"></i></a>
-                        @endpermission
+                            @permission('delete-team')
+                            <li>{!! Form::open(['url' => route('teams.remove', $team->id), 'method' => 'DELETE']) !!}
+                                <a id="delete-button" href="#" data-popup="tooltip"
+                                   title="Delete team">
+                                    <i class="icon-trash text-blue"></i>
+                                </a>
+                                {!! Form::close() !!}</li>
+                            @endpermission
+                        </ul>
+
                         <small class="display-block"><span id="team-description">{{ $team->description }}</span></small>
                     </h6>
                 </div>
@@ -147,6 +155,60 @@
         </div>
     </div>
 
+    @permission('create-task')
+
+    <ul class="fab-menu fab-menu-fixed fab-menu-bottom-right">
+        <li>
+            <a href="#" data-popup="tooltip" title="Create task" data-toggle="modal" data-target="#store_modal"
+               class="fab-menu-btn btn bg-success btn-float btn-rounded btn-icon">
+                <i class="fab-icon-open icon-plus3"></i>
+                <i class="fab-icon-close icon-cross2"></i>
+            </a>
+        </li>
+    </ul>
+
+    <div id="store_modal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                {!! Form::open(['url' => route('tasks.store'), 'method' => 'PUT']) !!}
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h5 class="modal-title">Create task</h5>
+                </div>
+
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Avatar</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><input type="text" name="display_name" class="form-control"></td>
+                                <td><input type="text" name="description" class="form-control"></td>
+                                <td><select name="" class="form-control"</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+
+                {!! Form::close() !!}
+            </div>
+        </div>
+    </div>
+
+    @endpermission
 
 @endsection
 

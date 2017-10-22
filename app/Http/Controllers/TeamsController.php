@@ -54,10 +54,8 @@ class TeamsController extends Controller
    public function remove(Team $team)
    {
        $team->delete();
-       return new JsonResponse([
-           'message' => 'Successfully deleted',
-           'type' => 'success'
-       ]);
+
+       return redirect(route('teams.index'));
    }
 
    /**
