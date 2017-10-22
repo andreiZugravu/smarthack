@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Message;
 use Validator;
+use Illuminate\Http\JsonResponse;
+use Auth;
 
 class MessagesController extends Controller
 {
@@ -22,6 +24,8 @@ class MessagesController extends Controller
         //validate
         $validator = Message::validateRequest($request);
 
+        $validator->fails();
+
         //check failure
         if($validator->fails())
         {
@@ -32,11 +36,16 @@ class MessagesController extends Controller
         }
         else
         {
+
+            $request->merge([
+               'created_by' => Auth::id(),
+
+            ]);
             Message::updateOrCreate(['id' => $message->id], $request->all());
             return new JsonResponse([
                 'message' => 'Success',
                 'type' => 'success'
             ]);
-        }
+        }dd('lol');
     }
 }

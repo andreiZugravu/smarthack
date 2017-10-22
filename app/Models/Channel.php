@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Validator;
 
 class Channel extends Model
 {
@@ -21,6 +23,25 @@ class Channel extends Model
      * @var array
      */
     /* none */
+
+    /**
+     * The validation rules.
+     *
+     * @var array
+     */
+    public static $rules = [
+         'display_name' => ['min:4, max:191']
+    ];
+
+    /**
+     * Validate Function
+     *
+     * @var array
+     */
+    public static function validate(Request $request)
+    {
+        return Validator::make($request->all(), self::$rules);
+    }
 
     /**
      *The users that are part of the channel

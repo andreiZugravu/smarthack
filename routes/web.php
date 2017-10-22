@@ -15,6 +15,13 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
 
+
+//Testing
+    Route::get('/testing', function () {
+        return view('testing.index');
+    });
+
+
     Route::get('/', function () {
         return view('landing.index');
     });
@@ -23,11 +30,6 @@ Route::group(['middleware' => ['auth']], function () {
         'as' => 'landing.index',
         'uses' => 'LandingPageController@index'
     ]);
-
-//Testing
-    Route::get('/testing', function () {
-        return view('testing.index');
-    });
 
 //Teams
 
@@ -52,10 +54,34 @@ Route::group(['middleware' => ['auth']], function () {
     ]);
 
 //Messages
-    Route::put('/m/{message?}', [
-        'as' => 'm.store',
+
+    Route::put('/messages/{messages?}', [
+        'as' => 'messages.store',
         'uses' => 'MessagesController@store'
     ]);
+
+//Channels
+
+    Route::get('/channels', [
+        'as' => 'channels.index',
+        'uses' => 'ChannelsController@index'
+    ]);
+
+    Route::get('/channels/{channel}', [
+        'as' => 'channels.show',
+        'uses' => 'ChannelsController@show'
+    ]);
+
+    Route::put('/channels/{channel?}', [
+        'as' => 'channels.store',
+        'uses' => 'ChannelsController@store'
+    ]);
+
+    Route::delete('/channel/{channel}', [
+        'as' => 'channels.remove',
+        'uses' => 'ChannelsController@remove'
+    ]);
+
 
 //Users
     Route::get('/users', ['as' => 'users.index', 'uses' => 'UsersController@index']);
@@ -64,6 +90,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/users/{user_id?}', ['as' => 'users.store', 'uses' => 'UsersController@store']);
 
     Route::delete('/users/{user_id}', ['as' => 'users.remove', 'uses' => 'UsersController@remove']);
+
 
     Route::get('/home', 'HomeController@index')->name('home');
 
@@ -78,4 +105,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 
+    Route::get('/tasks/index', [
+        'as' => 'tasks.index',
+        'uses' => 'LandingPageController@index'
+    ]);
 });
