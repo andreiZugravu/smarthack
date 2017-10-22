@@ -33,9 +33,13 @@ class TeamsController extends Controller
            ]);
        }
 
-       $name = str_slug($request->input('display_name'));
+       $request->merge([
+       		'name' => str_slug($request->display_name),
+       		'lead' => Auth::id(),
+       		'created_by' => Auth::id()
+       ]);
 
-       Team::updateOrCreate(['id' => $team->id], $request->all() + ['name' => $name]);
+       Team::updateOrCreate(['id' => $team->id], $request->all());
        return new JsonResponse([
            'message' => 'Success',
            'type' => 'success'

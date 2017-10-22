@@ -13,9 +13,9 @@ class ChannelsController extends Controller
 {
     //
     public function index() {
-        $teams = User::find(Auth::user()->id)->channels()->get();
-        return $channels;
-        //return view('channels.index', ['channels' => $channels]);
+        $channels = User::find(Auth::user()->id)->channels()->get();
+        //return $channels;
+        return view('channels.index', ['channels' => $channels]);
     }
 
     public function show(Channel $channel) {
@@ -46,9 +46,9 @@ class ChannelsController extends Controller
    /**
     *
     */
-   public function remove(Team $team)
+   public function remove(Channel $channel)
    {
-       $team->delete();
+       $channel->delete();
        return new JsonResponse([
            'message' => 'Successfully deleted',
            'type' => 'success'
