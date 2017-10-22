@@ -24,21 +24,21 @@
                             <li>
                                 <h6 class="text-semibold no-margin"><span id="team-name">{{ $team->display_name }}</span></h6>
                             </li>
-                            @permission('edit-team')
+                            @if($team->lead == Auth::id())
                             <li><a href="#" data-popup="tooltip"
                                    title="Edit team"
                                    data-toggle="modal"
                                    data-target="#edit_modal"><i class="icon-gear text-blue"></i></a></li>
-                            @endpermission
+                            @endif
 
-                            @permission('delete-team')
+                            @if($team->lead == Auth::id())
                             <li>{!! Form::open(['url' => route('teams.remove', $team->id), 'method' => 'DELETE']) !!}
                                 <a id="delete-button" href="#" data-popup="tooltip"
                                    title="Delete team">
                                     <i class="icon-trash text-blue"></i>
                                 </a>
                                 {!! Form::close() !!}</li>
-                            @endpermission
+                            @endif
                         </ul>
 
                         <small class="display-block"><span id="team-description">{{ $team->description }}</span></small>
@@ -111,7 +111,6 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 {!! Form::open(['url' => route('teams.store', $team->id), 'method' => 'PUT']) !!}
-                {{--                {!! Form::hidden('id', $team->id) !!}--}}
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -171,7 +170,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 {!! Form::open(['url' => route('tasks.store'), 'method' => 'PUT']) !!}
-
+                    {!! Form::hidden('team_id', $team->id) !!}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h5 class="modal-title">Create task</h5>
@@ -184,14 +183,26 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Description</th>
-                                <th>Avatar</th>
+                                <th>Status</th>
+                                <th>Priority</th>
+                                <th>Deadline</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                                 <td><input type="text" name="display_name" class="form-control"></td>
                                 <td><input type="text" name="description" class="form-control"></td>
-                                <td><select name="" class="form-control"</td>
+                                <td><select name="status_id" class="form-control">
+                                        @foreach(\App\Models\Status::all() as $status)
+                                            <option value="{{ $status->status_id }}">{{ $status->display_name }}</option>
+                                        @endforeach
+                                    </select></td>
+                                <td><select name="priority" class="form-control">
+                                        <option value="low">Low</option>
+                                        <option value="medium">Medium</option>
+                                        <option value="high">High</option>
+                                    </select></td>
+                                <td>{!! Form::date('deadline', \Carbon\Carbon::now(), ['class' => 'form-control']) !!}</td>
                             </tr>
                             </tbody>
                         </table>

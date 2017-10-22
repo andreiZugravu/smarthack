@@ -24,6 +24,7 @@ class TasksController extends Controller
 
     public function store(Request $request, Task $task)
    {
+       Task::normalizeRequest($request);
        $validator = Task::validate($request);
 
        if($validator->fails())
@@ -38,7 +39,7 @@ class TasksController extends Controller
        		'name' => str_slug($request->display_name),
        ]);
 
-       Team::updateOrCreate(['id' => $task->id], $request->all());
+       Task::updateOrCreate(['id' => $task->id], $request->all());
        return new JsonResponse([
            'message' => 'Success',
            'type' => 'success'

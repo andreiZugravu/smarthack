@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Validator;
 
 class Task extends Model
@@ -31,9 +32,9 @@ class Task extends Model
      */
     public static $rules = [
          'display_name' => ['required', 'min:4, max:191'],
-         'status_id' => ['required', 'integer'],
-         'team_id' => ['required', 'integer'],
-         'priority' => 'required'
+         'status_id' => ['required', 'integer', 'exists:statuses,status_id'],
+         'team_id' => ['required', 'integer', 'exists:teams,id'],
+         'priority' => ['required']
     ];
 
     /**
@@ -44,6 +45,16 @@ class Task extends Model
     public static function validate(Request $request)
     {
         return Validator::make($request->all(), self::$rules);
+    }
+
+    public static function normalizeRequest(Request $request)
+    {
+        $request->merge(array_map('trim', $request->all()));
+        $request->merge(['name' => str_slug($request->display ?? '')]);
+
+        if (!isset($request->id)) {
+            $request->merge(['created_by' => \Auth::id()]);
+        }
     }
 
     /**
