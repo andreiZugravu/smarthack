@@ -58,4 +58,16 @@ class MessagesController extends Controller
             ]);
         }
     }
+
+     /**
+    *
+    */
+   public function remove(Message $message)
+   {
+       $message->delete();
+       return new JsonResponse([
+           'message' => 'Successfully deleted',
+           'type' => 'success'
+       ]);
+   }
 }
