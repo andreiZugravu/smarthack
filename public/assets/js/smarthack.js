@@ -26,4 +26,8 @@ $(document).ready(function () {
     $('a[data-popup=tooltip]').on('click', function () {
         $(this).siblings('#' + $(this).attr('aria-describedby')).remove();
     });
+
+    $('a[href=#]').on('click', function (e) {
+        e.preventDefault();
+    });
 });

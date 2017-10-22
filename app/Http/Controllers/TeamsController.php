@@ -25,6 +25,7 @@ class TeamsController extends Controller
 
     public function store(Request $request, Team $team)
    {
+
        if(Auth::user() != $team->leader())
        		abort(403);
 
