@@ -25,6 +25,10 @@ class TeamsController extends Controller
 
     public function store(Request $request, Team $team)
    {
+
+       //if(Auth::user() != $team->leader())
+       		//abort(403);
+
        $validator = Team::validate($request);
 
        if($validator->fails())
@@ -63,12 +67,12 @@ class TeamsController extends Controller
     */
    public function addUser(Request $request, Team $team)
    {
-       if(!$team->users()->find(Auth::user()->id))
-       		abort(403);
+       //if(!$team->users()->find(Auth::user()->id))
+       		//abort(403);
 
-       if (!isset($request->user_id) || !User::find($request->user_id)) {
-           abort(404);
-       }
+       //if (!isset($request->user_id) || !User::find($request->user_id)) {
+          // abort(404);
+       //}
 
        if(!$team->users()->find($request->user_id)) //not a part of the team already, eligible to add
        {
@@ -111,9 +115,9 @@ class TeamsController extends Controller
 
     public function removeUser(Request $request, Team $team)
     {
-        if (!isset($request->user_id) || !User::find($request->user_id)) {
-            abort(404);
-        }
+        //if (!isset($request->user_id) || !User::find($request->user_id)) {
+            //abort(404);
+        //}
 
         if($team->users()->find($request->user_id))
         {

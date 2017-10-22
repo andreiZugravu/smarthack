@@ -44,8 +44,10 @@
                         </div>
                     </div>
 
-                    <div class="panel-footer panel-footer-condensed"><a class="heading-elements-toggle"><i
-                                    class="icon-more"></i></a>
+                    <div class="panel-footer panel-footer-condensed"><a class="heading-elements-toggle">
+                            <i class="icon-more">
+
+                            </i></a>
                         <div class="heading-elements">
                             <span class="heading-text">Due: <span
                                         class="text-semibold">{{ $task->deadline ?? 'No deadline' }}</span></span>
