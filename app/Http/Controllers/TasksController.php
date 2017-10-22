@@ -25,6 +25,9 @@ class TasksController extends Controller
 
     public function store(Request $request, Task $task)
    {
+       if(Auth::user() != $task->team()->leader())
+       		App::abort(403);
+
        $validator = Task::validate($request);
 
        if($validator->fails())
