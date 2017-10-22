@@ -52,12 +52,21 @@ Route::group(['middleware' => ['auth']], function () {
         'uses' => 'TeamsController@addUser'
     ]);
 
+
+
+
     Route::delete('teams/removeUser', [
+
         'as' => 'teams.removeUser',
         'uses' => 'TeamsController@removeUser'
     ]);
 
 //Messages
+
+    Route::get('/messages/{channel?}', [
+        'as' => 'messages.index',
+        'uses' => 'MessagesController@index'
+    ]);
 
     Route::put('/messages/{message?}', [
         'as' => 'messages.store',
@@ -100,7 +109,13 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::delete('/users/{user_id}', ['as' => 'users.remove', 'uses' => 'UsersController@remove']);
 
+
+    //Tasks
+
+
+
     Route::get('/tasks', [
+
         'as' => 'tasks.index',
         'uses' => 'TasksController@index'
     ]);
@@ -118,5 +133,20 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/tasks/{task}', [
         'as' => 'tasks.remove',
         'uses' => 'TasksController@remove'
+    ]);
+
+    Route::put('/tasks/{task}', [
+        'as' => 'tasks.remove',
+        'uses' => 'TasksController@remove'
+    ]);
+
+    Route::put('tasks/addUser/{task}', [
+        'as' => 'tasks.addUser',
+        'uses' => 'TasksController@addUser'
+    ]);
+
+    Route::put('tasks/removeUser/{task}', [
+        'as' => 'tasks.removeUser',
+        'uses' => 'TasksController@removeUser'
     ]);
 });

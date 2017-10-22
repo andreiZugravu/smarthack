@@ -8,7 +8,7 @@
 
     <div class="row">
         <div class="col-lg-9">
-
+            @include('elements.tasks')
         </div>
 
         <div class="col-lg-3">

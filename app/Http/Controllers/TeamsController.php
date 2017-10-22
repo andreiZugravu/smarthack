@@ -20,11 +20,14 @@ class TeamsController extends Controller
     public function show(Team $team) {
         $users = User::whereNotIn('id', $team->users->pluck('id'))->get();
 
-    	return view('teams.show', ['team' => $team, 'users' => $users]);
+    	return view('teams.show', ['team' => $team, 'users' => $users, 'tasks' => $team->tasks]);
     }
 
     public function store(Request $request, Team $team)
    {
+       if(Auth::user() != $team->leader())
+       		App::abort(403);
+
        $validator = Team::validate($request);
 
        if($validator->fails())
@@ -63,6 +66,9 @@ class TeamsController extends Controller
     */
    public function addUser(Request $request, Team $team)
    {
+       if(!$team->users()->find(Auth::user()->id))
+       		App::abort(403);
+
        if (!isset($request->user_id) || !User::find($request->user_id)) {
            abort(404);
        }
@@ -84,8 +90,11 @@ class TeamsController extends Controller
    /**
     *
     */
-   public function removeUser(Team $team, $id)
+   /*public function removeUser(Team $team, $id)
    {
+       if(Auth::user() != $team->leader())
+       		App::abort(403);
+
        if($team->users()->first($id)) //part of the team, eligible to remove
        {
            $team->users()->detach($id);
@@ -101,5 +110,25 @@ class TeamsController extends Controller
                'type' => 'error'
            ]);
        }
-   }
+   }*/
+
+    public function removeUser(Request $request, Team $team)
+    {
+        if (!isset($request->user_id) || !User::find($request->user_id)) {
+            abort(404);
+        }
+
+        if($team->users()->find($request->user_id))
+        {
+            $team->users()->detach($request->user_id);
+            return redirect()->back();
+        }
+        else
+        {
+            return new JsonResponse([
+                'message' => 'Member not a part of the team',
+                'type' => 'error'
+            ]);
+        }
+    }
 }
