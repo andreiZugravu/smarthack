@@ -34,9 +34,12 @@ class ChannelsController extends Controller
            ]);
        }
 
-       $name = str_slug($request->input('display_name'));
+       $request->merge([
+          'name' => str_slug($request->display_name),
+          'created_by' => Auth::id()
+       ]);
 
-       Channel::updateOrCreate(['id' => $channel->id], $request->all() + ['name' => $name]);
+       Channel::updateOrCreate(['id' => $channel->id], $request->all());
        return new JsonResponse([
            'message' => 'Success',
            'type' => 'success'
