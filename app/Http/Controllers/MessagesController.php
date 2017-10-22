@@ -17,6 +17,7 @@ class MessagesController extends Controller
     public function index(Channel $channel)
     {
         $messages = $channel->messages()->get();
+        //return $messages;
         return view('messages.index', ['messages' => $messages]);
     }
 

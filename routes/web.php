@@ -87,6 +87,11 @@ Route::group(['middleware' => ['auth']], function () {
         'uses' => 'MessagesController@remove'
     ]);
 
+    Route::get('/messages/{channel}', [
+        'as' => 'messages.index',
+        'uses' => 'MessagesController@index'
+    ]);
+
 //Channels
 
     Route::get('/channels', [
