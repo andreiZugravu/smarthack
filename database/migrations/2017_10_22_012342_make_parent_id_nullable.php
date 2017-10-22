@@ -14,7 +14,8 @@ class MakeParentIdNullable extends Migration
     public function up()
     {
         Schema::table('messages', function (Blueprint $table) {
-            $table->integer('parent_id')->unsigned()->nullable()->change();
+             DB::statement('ALTER TABLE `messages` MODIFY `parent_id` INTEGER UNSIGNED NULL;');
+            DB::statement('UPDATE `messages` SET `parent_id` = NULL WHERE `parent_id` = 0;');
         });
     }
 
@@ -26,7 +27,8 @@ class MakeParentIdNullable extends Migration
     public function down()
     {
         Schema::table('messages', function (Blueprint $table) {
-            $table->integer('parent_id')->unsigned()->change();
+            DB::statement('UPDATE `messages` SET `parent_id` = 0 WHERE `parent_id` IS NULL;');
+            DB::statement('ALTER TABLE `messages` MODIFY `parent_id` INTEGER UNSIGNED NOT NULL;');
         });
     }
 }
