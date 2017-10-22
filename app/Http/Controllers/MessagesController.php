@@ -7,9 +7,19 @@ use App\Models\Message;
 use Validator;
 use Illuminate\Http\JsonResponse;
 use Auth;
+use App\Models\Channel;
 
 class MessagesController extends Controller
 {
+    /**
+     * index action
+     */
+    public function index(Channel $channel)
+    {
+        $messages = $channel->messages()->get();
+        return view('messages.index', ['messages' => $messages]);
+    }
+
     /**
      * store action
      */

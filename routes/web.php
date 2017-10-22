@@ -65,10 +65,22 @@ Route::group(['middleware' => ['auth']], function () {
 
 //Messages
 
+
     Route::put('/messages/{message?}', [
         'as' => 'messages.store',
         'uses' => 'MessagesController@store'
     ]);
+
+    Route::delete('/messages/{message}', [
+        'as' => 'messages.remove',
+        'uses' => 'MessagesController@remove'
+    ]);
+
+    Route::put('/messages/{message?}', [
+        'as' => 'messages.store',
+        'uses' => 'MessagesController@store'
+    ]);
+
 
     Route::delete('/messages/{message}', [
         'as' => 'messages.remove',
@@ -111,9 +123,26 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 
-    Route::get('/tasks/index', [
+//Tasks
+
+    Route::get('/tasks', [
         'as' => 'tasks.index',
-        'uses' => 'LandingPageController@index'
+        'uses' => 'TasksController@index'
+    ]);
+
+    Route::get('/tasks/{task}', [
+        'as' => 'tasks.show',
+        'uses' => 'TasksController@show'
+    ]);
+
+    Route::put('/tasks/{task?}', [
+        'as' => 'tasks.store',
+        'uses' => 'TasksController@store'
+    ]);
+
+    Route::delete('/tasks/{task}', [
+        'as' => 'tasks.remove',
+        'uses' => 'TasksController@remove'
     ]);
 
 
