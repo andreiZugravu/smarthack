@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7f5c963882ba891133325a6eac32dbe7",
+    "content-hash": "41f21681b97c40627c1a40b4ff5fef15",
     "packages": [
         {
             "name": "davejamesmiller/laravel-breadcrumbs",
@@ -2278,16 +2278,16 @@
         },
         {
             "name": "zizaco/entrust",
-            "version": "5.2.x-dev",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Zizaco/entrust.git",
-                "reference": "3623cc052937d9e62543402b50f24065720d44b9"
+                "reference": "2a05acd5f2a81afdfc87ae41340dae26f585ed1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Zizaco/entrust/zipball/3623cc052937d9e62543402b50f24065720d44b9",
-                "reference": "3623cc052937d9e62543402b50f24065720d44b9",
+                "url": "https://api.github.com/repos/Zizaco/entrust/zipball/2a05acd5f2a81afdfc87ae41340dae26f585ed1d",
+                "reference": "2a05acd5f2a81afdfc87ae41340dae26f585ed1d",
                 "shasum": ""
             },
             "require": {
@@ -2342,7 +2342,7 @@
                 "permission",
                 "roles"
             ],
-            "time": "2016-12-29T06:25:06+00:00"
+            "time": "2017-04-10T16:22:12+00:00"
         }
     ],
     "packages-dev": [

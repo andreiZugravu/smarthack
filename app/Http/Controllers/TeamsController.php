@@ -18,7 +18,9 @@ class TeamsController extends Controller
     }
 
     public function show(Team $team) {
-    	return view('teams.show', ['team' => $team]);
+        $users = User::whereNotIn('id', $team->users->pluck('id'))->get();
+
+    	return view('teams.show', ['team' => $team, 'users' => $users]);
     }
 
     public function store(Request $request, Team $team)
@@ -39,11 +41,11 @@ class TeamsController extends Controller
        		'created_by' => Auth::id()
        ]);
 
-       Team::updateOrCreate(['id' => $team->id], $request->all());
-       return new JsonResponse([
-           'message' => 'Success',
-           'type' => 'success'
-       ]);
+       $team = Team::updateOrCreate(['id' => $team->id], $request->all());
+
+       Auth::user()->teams()->syncWithoutDetaching([$team->id]);
+
+       return redirect()->back();
    }
 
    /**
@@ -61,15 +63,16 @@ class TeamsController extends Controller
    /**
     *
     */
-   public function addUser(Team $team, $id)
+   public function addUser(Request $request, Team $team)
    {
-       if(!($team->users()->first($id))) //not a part of the team already, eligible to add
+       if (!isset($request->user_id) || !User::find($request->user_id)) {
+           abort(404);
+       }
+
+       if(!$team->users()->find($request->user_id)) //not a part of the team already, eligible to add
        {
-           $team->users()->attach($id);
-           return new JsonResponse([
-               'message' => 'Member successfully added to the team',
-               'type' => 'success'
-           ]);
+           $team->users()->attach($request->user_id);
+           return redirect()->back();
        }
        else
        {

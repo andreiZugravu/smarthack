@@ -19,7 +19,7 @@ class ChannelsController extends Controller
     }
 
     public function show(Channel $channel) {
-    	return view('channels.show', ['channel' => $channel]);
+        return view('channels.show', ['channel' => $channel]);
     }
 
     public function store(Request $request, Channel $channel)
@@ -58,3 +58,4 @@ class ChannelsController extends Controller
        ]);
    }
 }
+

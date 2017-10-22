@@ -53,7 +53,7 @@ Route::group(['middleware' => ['auth']], function () {
         'uses' => 'TeamsController@remove'
     ]);
 
-    Route::put('teams/addUser', [
+    Route::put('teams/addUser/{team}', [
         'as' => 'teams.addUser',
         'uses' => 'TeamsController@addUser'
     ]);
@@ -65,22 +65,10 @@ Route::group(['middleware' => ['auth']], function () {
 
 //Messages
 
-
-Route::put('/messages/{message?}', [
-   'as' => 'messages.store',
-   'uses' => 'MessagesController@store'
-]);
-
-Route::delete('/messages/{message}', [
-   'as' => 'messages.remove',
-   'uses' => 'MessagesController@remove'
-]);
-
     Route::put('/messages/{message?}', [
         'as' => 'messages.store',
         'uses' => 'MessagesController@store'
     ]);
-
 
     Route::delete('/messages/{message}', [
         'as' => 'messages.remove',
@@ -89,25 +77,25 @@ Route::delete('/messages/{message}', [
 
 //Channels
 
-Route::get('/channels', [
-   'as' => 'channels.index',
-   'uses' => 'ChannelsController@index'
-]);
+    Route::get('/channels', [
+        'as' => 'channels.index',
+        'uses' => 'ChannelsController@index'
+    ]);
 
-Route::get('/channels/{channel}', [
-   'as' => 'channels.show',
-   'uses' => 'ChannelsController@show'
-]);
+    Route::get('/channels/{channel}', [
+        'as' => 'channels.show',
+        'uses' => 'ChannelsController@show'
+    ]);
 
-Route::put('/channels/{channel?}', [
-   'as' => 'channels.store',
-   'uses' => 'ChannelsController@store'
-]);
+    Route::put('/channels/{channel?}', [
+        'as' => 'channels.store',
+        'uses' => 'ChannelsController@store'
+    ]);
 
-Route::delete('/channel/{channel}', [
-   'as' => 'channels.remove',
-   'uses' => 'ChannelsController@remove'
-]);
+    Route::delete('/channel/{channel}', [
+        'as' => 'channels.remove',
+        'uses' => 'ChannelsController@remove'
+    ]);
 
 
 //Users
@@ -118,32 +106,23 @@ Route::delete('/channel/{channel}', [
 
     Route::delete('/users/{user_id}', ['as' => 'users.remove', 'uses' => 'UsersController@remove']);
 
-	Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/tasks/index', [
+        'as' => 'tasks.index',
+        'uses' => 'TasksController@index'
+    ]);
 
+    Route::get('/tasks/{task}', [
+        'as' => 'tasks.show',
+        'uses' => 'TasksController@show'
+    ]);
 
+    Route::put('/tasks/{task?}', [
+        'as' => 'tasks.store',
+        'uses' => 'TasksController@store'
+    ]);
 
-//Tasks
-
-Route::get('/tasks', [
-   'as' => 'tasks.index',
-   'uses' => 'TasksController@index'
-]);
-
-Route::get('/tasks/{task}', [
-   'as' => 'tasks.show',
-   'uses' => 'TasksController@show'
-]);
-
-Route::put('/tasks/{task?}', [
-   'as' => 'tasks.store',
-   'uses' => 'TasksController@store'
-]);
-
-Route::delete('/tasks/{task}', [
-   'as' => 'tasks.remove',
-   'uses' => 'TasksController@remove'
-]);
-
-
+    Route::delete('/tasks/{task}', [
+        'as' => 'tasks.remove',
+        'uses' => 'TasksController@remove'
+    ]);
 });
-
